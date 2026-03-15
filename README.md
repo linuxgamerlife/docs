@@ -150,10 +150,10 @@ These standards apply to:
 | Standard | Status |
 |--------|--------|
 | C++ / Qt Development Standard | Active |
-| Privileged Operations Standard | Active |
-| Secure Design Review Standard | Active |
-| Release Integrity Standard | Active |
-| AI-Assisted Development Safety Standard | Active |
+| Privileged Operations Standard | WIP |
+| Secure Design Review Standard | WIP |
+| Release Integrity Standard | WIP |
+| AI-Assisted Development Safety Standard | WIP |
 
 
 ## Licence
