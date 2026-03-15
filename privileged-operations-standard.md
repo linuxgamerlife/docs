@@ -1,77 +1,117 @@
 # Privileged Operations Standard
 
-Purpose
+## Purpose
 
-This standard defines how applications that perform privileged operations must be designed and implemented. The goal is to minimise risk when interacting with system-level functionality such as package installation, repository changes, device configuration, or filesystem modifications.
+This standard defines how applications that perform privileged operations must be designed and implemented.
+
+The goal is to minimise risk when interacting with system-level functionality such as:
+
+- package installation
+- repository changes
+- device configuration
+- filesystem modifications
 
 These rules apply to any component capable of performing operations requiring administrative privileges.
 
 
-Principles
+## Core Principles
 
-Privileged code must be minimal.
-
-The amount of code running with elevated privileges must be as small as possible. The majority of the application must run as a normal user.
-
-Privilege boundaries must be explicit.
-
-Any transition from unprivileged code to privileged execution must be clearly defined and documented.
-
-All requests crossing the privilege boundary must be treated as untrusted input.
+| Principle | Description |
+|---|---|
+| Minimal Privilege | Only the smallest amount of code should run with elevated privileges |
+| Explicit Boundaries | Privilege transitions must be clearly defined and documented |
+| Untrusted Input | All requests crossing the privilege boundary must be treated as untrusted input |
 
 
-Architecture Requirements
+## Architecture Requirements
 
-GUI components must never run as root.
+### GUI Privileges
 
-User interfaces must run with normal user privileges.
+**Rule**
 
-Privileged functionality must be isolated.
+User interfaces must never run as root.
 
-System-level actions must be implemented in a dedicated helper or service responsible only for performing specific administrative tasks.
-
-Privileged operations must be allow-listed.
-
-Only predefined operations may be executed. Arbitrary commands or parameters must never be accepted.
-
-Shell execution must be avoided.
-
-Privileged operations must invoke programs directly with explicit argument lists. Shell execution such as `bash -c` must not be used unless absolutely required and must never include user-controlled data.
-
-All inputs must be validated.
-
-Any input used in privileged commands must be validated against strict rules including allowed characters, formats, and expected values.
+GUI code must run as the normal user and request privileged operations when required.
 
 
-Failure Handling
+### Privileged Isolation
+
+**Rule**
+
+Privileged functionality must be implemented in a dedicated helper or service responsible only for administrative tasks.
+
+The majority of application code must remain unprivileged.
+
+
+### Allow-Listed Operations
+
+Privileged helpers must only support predefined operations.
+
+The following must never be allowed:
+
+- arbitrary command execution
+- arbitrary filesystem paths
+- arbitrary parameters
+
+
+### Shell Execution
+
+Shell execution should be avoided.
+
+Programs must be executed directly using explicit program and argument lists.
+
+Example:
+
+```
+program: dnf
+args: install package-name
+```
+
+
+### Input Validation
+
+Inputs used in privileged commands must be validated.
+
+Validation must ensure:
+
+- expected format
+- permitted character set
+- expected value range
+
+
+## Failure Handling
+
+### Fail Safe Behaviour
 
 Privileged operations must fail safely.
 
-Unexpected exit codes or errors must stop execution rather than continuing in a partially configured state.
-
-Operations must be idempotent where possible.
-
-Repeated execution should not corrupt the system or produce inconsistent states.
+Unexpected errors or exit codes must stop execution rather than continuing in a partially configured state.
 
 
-Logging
+### Idempotent Behaviour
 
-Privileged actions must generate clear logs indicating:
-
-- Operation requested
-- Operation executed
-- Result or error condition
-
-Logs must never expose secrets or sensitive user data.
+Where possible, operations should be safe to run multiple times without corrupting system state.
 
 
-Review Requirements
+## Logging
 
-All privileged code must receive additional security review before merging.
+Privileged operations must produce logs including:
 
-Changes affecting privileged operations must document:
+- operation requested
+- operation executed
+- result or failure condition
 
-- What operation is performed
-- What inputs are accepted
-- How those inputs are validated
-- What failure behaviour is expected
+Logs must never expose sensitive information.
+
+
+## Compliance Checklist
+
+Before merging code that performs privileged operations:
+
+- [ ] GUI does not run as root
+- [ ] Privileged functionality is isolated
+- [ ] Commands are allow-listed
+- [ ] Shell execution is avoided
+- [ ] Inputs are validated
+- [ ] Fail-safe behaviour implemented
+- [ ] Logging present
