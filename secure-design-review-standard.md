@@ -1,78 +1,92 @@
 # Secure Design Review Standard
 
-Purpose
+## Purpose
 
 This standard ensures that security considerations are addressed during system design rather than after implementation.
 
 All significant features must undergo a design review before development begins.
 
 
-Design Documentation
+## Design Documentation
 
-Each feature must include a short design document covering:
-
-Feature description
-
-What the feature does and why it exists.
-
-Assets affected
-
-What system resources the feature interacts with, such as packages, filesystems, configuration files, services, or network access.
-
-Trust boundaries
-
-Where data crosses boundaries between components such as:
-
-User interface → internal logic  
-Application → privileged operations  
-Application → external programs
+Each feature must include a short design document covering the following areas.
 
 
-Threat Considerations
+### Feature Description
 
-Each design must consider the following questions:
-
-What happens if input is malicious?
-
-All inputs must be treated as potentially hostile.
-
-What happens if commands fail?
-
-Failure must not leave the system in an unsafe or inconsistent state.
-
-What happens if the feature is abused?
-
-The design must consider how the feature could be misused or triggered repeatedly.
+Explain what the feature does and why it exists.
 
 
-Security Requirements
+### Assets Affected
 
-Features must follow these rules:
+Identify the system resources the feature interacts with.
 
-Principle of least privilege
+Examples:
 
-Only the permissions required to perform the task may be granted.
-
-Explicit allow-lists
-
-Operations must be limited to predefined safe actions.
-
-Input validation
-
-Inputs must be validated at every trust boundary.
+- packages
+- configuration files
+- system services
+- filesystems
+- hardware devices
+- network connections
 
 
-Review Process
+### Trust Boundaries
 
-Before implementation begins:
+Identify where data crosses boundaries between components.
 
-- Design document must be reviewed
-- Trust boundaries must be confirmed
-- Privileged operations must be justified
+Examples include:
 
-Security concerns must be resolved before coding begins.
+- user interface → application logic
+- application → privileged helper
+- application → external programs
 
 
-Outcome
+## Threat Considerations
 
-The goal is to identify architectural risks early so they are solved at the design stage rather than patched later in code.
+Design reviews must consider the following questions.
+
+### Malicious Input
+
+What happens if input is hostile or malformed?
+
+
+### Command Failure
+
+What happens if external commands fail or return unexpected results?
+
+
+### Feature Misuse
+
+How could the feature be abused or triggered repeatedly?
+
+
+## Security Requirements
+
+All features must follow these principles.
+
+| Principle | Requirement |
+|---|---|
+| Least Privilege | Only required permissions are granted |
+| Allow Lists | Only predefined operations are allowed |
+| Input Validation | Inputs validated at trust boundaries |
+
+
+## Review Process
+
+Before development begins:
+
+- design documentation must be reviewed
+- trust boundaries must be identified
+- privileged operations must be justified
+
+
+## Compliance Checklist
+
+Before implementing a feature:
+
+- [ ] design document written
+- [ ] assets identified
+- [ ] trust boundaries defined
+- [ ] misuse scenarios considered
+- [ ] least privilege confirmed
