@@ -126,6 +126,24 @@ File
 `ai-assisted-development-safety-standard.md`
 
 
+### Secure Web Application Development Standard
+
+Defines the security rules for web applications, APIs, browser-based interfaces, and embedded remote web content.
+
+Focus areas include:
+
+- authentication and authorisation
+- input validation and injection prevention
+- browser security controls
+- API and session security
+- dependency and supply chain security
+- secure handling of embedded remote content
+
+File
+
+`secure-web-application-development-standard.md`
+
+
 ## How These Standards Work Together
 
 These standards form a layered development model.
@@ -154,6 +172,7 @@ These standards apply to:
 | Secure Design Review Standard | WIP |
 | Release Integrity Standard | WIP |
 | AI-Assisted Development Safety Standard | WIP |
+| Secure Web Application Development Standard | Active |
 
 
 ## Licence
