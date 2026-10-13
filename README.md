@@ -48,6 +48,22 @@ File
 `cpp-qt-development-standard.md`
 
 
+### GTK Desktop Application Standard
+
+Defines the shared look, behaviour and structure of GTK 4 (gtkmm) applications, so every app feels the same to use.
+
+Focus areas include:
+
+- following the desktop theme live
+- title bar modes and header bar layout
+- logo, main menu and keyboard shortcuts
+- About dialog, dialogs and settings storage
+- project layout, testing and packaging
+
+File  
+`gtk-desktop-application-standard.md`
+
+
 ### Privileged Operations Standard
 
 Defines how applications that perform system-level operations must be designed.
@@ -149,7 +165,7 @@ File
 These standards form a layered development model.
 
 1. Features are reviewed using secure design principles.
-2. Code must follow strict C++ and Qt engineering standards.
+2. Code must follow strict C++ engineering standards, with the Qt or GTK standard for the toolkit in use.
 3. Privileged operations are isolated and tightly controlled.
 4. Automated tooling verifies security and reliability.
 5. Releases are built and distributed with verifiable integrity.
@@ -168,6 +184,7 @@ These standards apply to:
 | Standard | Status |
 |--------|--------|
 | C++ / Qt Development Standard | Active |
+| GTK Desktop Application Standard | WIP |
 | Privileged Operations Standard | WIP |
 | Secure Design Review Standard | WIP |
 | Release Integrity Standard | WIP |
